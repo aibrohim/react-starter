@@ -36,7 +36,6 @@ var svgstore = require("gulp-svgstore");
 var del = require("del");
 var posthtml = require("gulp-posthtml");
 var include = require("posthtml-include");
-var fs = require("fs");
 
 gulp.task("css", function () {
   return gulp.src("markup/src/sass/main.scss")
@@ -87,11 +86,11 @@ gulp.task("html", function () {
 })
 
 gulp.task("public-html", () => {
-  return gulp.src("public/*.html")
+  return gulp.src("public-template/*.html")
     .pipe(posthtml([
       include()
     ]))
-    .pipe(gulp.dest("public"))
+    .pipe(gulp.dest("public/"))
 })
 
 gulp.task("sprite", function () {
@@ -99,7 +98,6 @@ gulp.task("sprite", function () {
     .pipe(svgstore({
       inlineSvg: true
     }))
-
     .pipe(rename("sprite.svg"))
     .pipe(gulp.dest("markup/src/img"))
     .pipe(gulp.dest("markup/dist/img"))
